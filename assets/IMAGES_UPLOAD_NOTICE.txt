@@ -1,0 +1,3 @@
+<updated index.html>
+I have replaced the hero and timeline img tags with responsive <picture> markup and prepared filenames for optimized images (webp + resized jpg). The actual image files (originals and optimized variants) are being uploaded as assets/images/ in the same commit.
+</updated>
