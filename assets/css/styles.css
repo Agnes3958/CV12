@@ -1,0 +1,62 @@
+/* Styles for 何美佳 · 交互式简历 */
+:root{
+  --bg:#0b0b0d;
+  --card:#0f0f11;
+  --pink:#ff7ab6;
+  --muted:#bdbdbd;
+  --accent:#ff3d99;
+  --glass: rgba(255,255,255,0.03);
+  --radius:12px;
+  --max-width:1100px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background:linear-gradient(180deg, var(--bg) 0%, #0a0a0c 60%);
+  color:#fff; -webkit-font-smoothing:antialiased;
+}
+.container{max-width:var(--max-width);margin:0 auto;padding:28px}
+.site-header{position:sticky;top:0;background:transparent;padding:8px 0;z-index:40}
+.nav{display:flex;justify-content:space-between;align-items:center}
+.logo{color:var(--pink);font-weight:700;text-decoration:none}
+.nav-links{display:flex;gap:18px;list-style:none;padding:0;margin:0}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.95rem}
+.hero{padding:48px 0}
+.hero-grid{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center}
+.hero-text h1{font-size:3rem;margin:0;color:#fff}
+.hero-text .sub{color:var(--pink);margin-top:6px}
+.lead{color:var(--muted);max-width:56ch}
+.hero-card{background:linear-gradient(180deg, rgba(255,122,182,0.04), var(--glass));border-radius:var(--radius);padding:20px}
+.card-inner p{margin:8px 0;color:var(--muted)}
+.btn{display:inline-block;padding:10px 16px;border-radius:8px;background:var(--pink);color:#111;text-decoration:none;font-weight:600;margin-right:10px}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--pink)}
+.section{padding:40px 0}
+.section-title{font-size:1.25rem;color:var(--accent);margin-bottom:12px}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px}
+.muted{color:var(--muted)}
+.timeline{display:grid;gap:18px}
+.timeline-item{background:transparent;padding:14px;border-left:3px solid rgba(255,122,182,0.08);}
+.timeline-item time{display:block;color:var(--muted);font-size:0.9rem}
+.timeline-item h4{margin:6px 0}
+details summary{cursor:pointer;color:var(--pink);margin-top:8px}
+.awards-grid{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:start}
+.awards-grid table{width:100%;border-collapse:collapse}
+.awards-grid td,.awards-grid th{padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--muted);font-size:0.95rem}
+.honors{color:var(--muted);padding:8px}
+.skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.tags span{background:rgba(255,122,182,0.09);color:var(--pink);padding:6px 10px;border-radius:999px;font-size:0.9rem}
+.progress-area{margin-top:18px}
+.progress-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.progress{background:rgba(255,255,255,0.03);height:12px;border-radius:999px;flex:1;overflow:hidden}
+.progress .bar{height:100%;background:linear-gradient(90deg,var(--pink),var(--accent));width:0%;border-radius:999px;transition:width 900ms cubic-bezier(.2,.9,.2,1)}
+.contact-card p{margin:8px 0;color:var(--muted)}
+.site-footer{padding:26px 0;text-align:center;color:var(--muted)}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity 700ms ease,transform 700ms ease}
+.reveal.is-visible{opacity:1;transform:none}
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+  .awards-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+}
