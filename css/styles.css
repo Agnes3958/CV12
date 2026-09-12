@@ -1,12 +1,14 @@
 /* styles.css — base styles for Agnes3958/CV12 interactive resume
    Colors: 黑粉撞色主调
+   Updated: Replace solid black background with frosted-glass aesthetic
 */
 :root{
-  --bg:#0B0B0B;
+  /* base colors */
+  --bg: linear-gradient(180deg,#0b0b0d 0%, #0f1013 100%);
   --pink:#FF4DA6;
   --pink-2:#FF8FC2;
   --muted:#EDEDED;
-  --surface:#0F0F0F;
+  --surface:rgba(15,15,15,0.45);
   --gap:24px;
   --container-width:1200px;
 }
@@ -15,14 +17,31 @@ html,body{height:100%}
 body{
   margin:0;
   font-family:'Noto Sans SC',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-  background:var(--bg);
+  /* frosted glass style background: layered subtle gradients to simulate depth */
+  background: var(--bg), radial-gradient(circle at 10% 10%, rgba(255,77,166,0.03), transparent 8%), radial-gradient(circle at 90% 80%, rgba(255,143,194,0.02), transparent 12%);
   color:var(--muted);
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   line-height:1.5;
+  /* subtle vignette to lift center content */
+  background-blend-mode:overlay,screen;
 }
-.container{max-width:var(--container-width);margin:0 auto;padding:48px 24px}
-.site-header{position:sticky;top:0;z-index:30;background:linear-gradient(180deg,rgba(11,11,11,0.9),rgba(11,11,11,0.6));backdrop-filter: blur(6px);border-bottom:1px solid rgba(255,77,166,0.06)}
+/* subtle frosted noise overlay using pseudo-element on root-level container */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:repeating-linear-gradient(45deg, rgba(255,255,255,0.002) 0 1px, transparent 1px 6px);
+  opacity:0.6;mix-blend-mode:overlay;filter:blur(1px);
+}
+.container{
+  max-width:var(--container-width);margin:0 auto;padding:48px 24px;position:relative;z-index:2;
+  /* turn the main content area into a frosted glass panel */
+  background: rgba(255,255,255,0.02); /* slightly translucent */
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.03);
+  border-radius:12px;
+}
+.site-header{position:sticky;top:16px;z-index:30;background:linear-gradient(180deg,rgba(11,11,11,0.45),rgba(11,11,11,0.25));-webkit-backdrop-filter: blur(6px);backdrop-filter: blur(6px);border-bottom:1px solid rgba(255,77,166,0.04);margin:8px 0}
 .nav{display:flex;align-items:center;justify-content:space-between;padding:12px 24px}
 .brand{display:flex;align-items:center;gap:12px}
 .brand-mark{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--pink),var(--pink-2));box-shadow:0 6px 18px rgba(255,77,166,0.12)}
