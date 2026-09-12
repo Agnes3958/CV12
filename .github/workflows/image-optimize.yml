@@ -1,1 +1,48 @@
+name: Image optimize (generate resized + webp)
 
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'assets/images/**'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Pillow
+        run: |
+          python -m pip install --upgrade pip
+          pip install Pillow
+
+      - name: Run image optimization script
+        run: |
+          python tools/resize_and_webp.py
+
+      - name: Create PR with optimized images
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Auto-generate optimized images (@md/@sm/webp)"
+          title: "Auto-generate optimized images"
+          body: "This PR contains automatically generated resized and webp images from the CI script."
+          branch: "auto/image-optimize-${{ github.run_id }}"
+          labels: automated
+          paths: |
+            assets/images/**
