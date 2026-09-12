@@ -1,6 +1,6 @@
 /* styles.css — base styles for Agnes3958/CV12 interactive resume
    Colors: 黑粉撞色主调
-   Updated: Replace solid black background with frosted-glass aesthetic
+   Updated: Intensify frosted-glass effect (stronger blur, more opaque glass, deeper vignette and tactile noise)
 */
 :root{
   /* base colors */
@@ -8,78 +8,91 @@
   --pink:#FF4DA6;
   --pink-2:#FF8FC2;
   --muted:#EDEDED;
-  --surface:rgba(15,15,15,0.45);
+  --surface:rgba(15,15,15,0.55);
   --gap:24px;
   --container-width:1200px;
+  --glass-blur: 12px;     /* increased blur for stronger frosted look */
+  --glass-opacity: 0.045; /* slightly more opaque glass panel */
+  --noise-opacity: 0.10;  /* stronger noise visibility */
+  --vignette-alpha: 0.48; /* deeper vignette */
 }
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
   margin:0;
   font-family:'Noto Sans SC',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-  /* frosted glass style background: layered subtle gradients to simulate depth */
+  /* richer layered background for depth */
   background: var(--bg), radial-gradient(circle at 10% 10%, rgba(255,77,166,0.03), transparent 8%), radial-gradient(circle at 90% 80%, rgba(255,143,194,0.02), transparent 12%);
   color:var(--muted);
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   line-height:1.5;
-  /* subtle vignette to lift center content */
   background-blend-mode:overlay,screen;
 }
-/* subtle frosted noise overlay using pseudo-element on root-level container */
-body::before{
+/* stronger vignette to focus content */
+body::after{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background-image:repeating-linear-gradient(45deg, rgba(255,255,255,0.002) 0 1px, transparent 1px 6px);
-  opacity:0.6;mix-blend-mode:overlay;filter:blur(1px);
+  background: radial-gradient(60% 50% at 50% 45%, rgba(255,255,255,0.02), transparent 30%),
+              radial-gradient(100% 60% at 50% 100%, rgba(0,0,0,var(--vignette-alpha)), transparent 40%),
+              linear-gradient(180deg, rgba(11,11,11,0.12), rgba(11,11,11,0.28));
+  mix-blend-mode:overlay;
+  opacity:1;
+}
+/* more tactile noise overlay */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:1;
+  background-image:repeating-linear-gradient(45deg, rgba(255,255,255,var(--noise-opacity)) 0 1px, transparent 1px 6px);
+  opacity:0.95;mix-blend-mode:overlay;filter:blur(0.8px);
 }
 .container{
-  max-width:var(--container-width);margin:0 auto;padding:48px 24px;position:relative;z-index:2;
-  /* turn the main content area into a frosted glass panel */
-  background: rgba(255,255,255,0.02); /* slightly translucent */
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.03);
-  border-radius:12px;
+  max-width:var(--container-width);margin:36px auto;padding:44px;position:relative;z-index:2;
+  /* intensified frosted glass panel */
+  background: rgba(255,255,255,var(--glass-opacity)); /* slightly more opaque */
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid rgba(255,255,255,0.045);
+  border-radius:14px;
+  box-shadow: 0 20px 50px rgba(7,7,7,0.55);
 }
-.site-header{position:sticky;top:16px;z-index:30;background:linear-gradient(180deg,rgba(11,11,11,0.45),rgba(11,11,11,0.25));-webkit-backdrop-filter: blur(6px);backdrop-filter: blur(6px);border-bottom:1px solid rgba(255,77,166,0.04);margin:8px 0}
+.site-header{position:sticky;top:16px;z-index:30;background:linear-gradient(180deg,rgba(11,11,11,0.52),rgba(11,11,11,0.32));-webkit-backdrop-filter: blur(8px);backdrop-filter: blur(8px);border-bottom:1px solid rgba(255,77,166,0.05);margin:6px 0;border-radius:10px;padding:8px 12px}
 .nav{display:flex;align-items:center;justify-content:space-between;padding:12px 24px}
 .brand{display:flex;align-items:center;gap:12px}
-.brand-mark{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--pink),var(--pink-2));box-shadow:0 6px 18px rgba(255,77,166,0.12)}
+.brand-mark{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--pink),var(--pink-2));box-shadow:0 6px 22px rgba(255,77,166,0.16)}
 .brand-name{font-weight:700;font-size:18px}
 .brand .sub{display:block;font-size:12px;color:var(--pink-2);font-weight:400}
 .nav-links{display:flex;gap:18px;list-style:none;margin:0;padding:0}
 .nav-links a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:6px}
-.nav-links a:hover, .nav-links a:focus{background:rgba(255,77,166,0.06);color:var(--pink)}
+.nav-links a:hover, .nav-links a:focus{background:rgba(255,77,166,0.08);color:var(--pink)}
 .hero{display:flex;align-items:center;gap:48px;padding-top:36px;padding-bottom:36px}
 .hero-left{flex:1}
 .hero-right{width:320px;flex:0 0 320px}
-.hero-right img{width:100%;height:auto;border-radius:12px;object-fit:cover;box-shadow:0 10px 30px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.03)}
+.hero-right img{width:100%;height:auto;border-radius:12px;object-fit:cover;box-shadow:0 12px 36px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.04)}
 h1{font-family:'Playfair Display',serif;font-size:44px;margin:0 0 12px;color:var(--muted)}
 .eng{font-size:18px;color:var(--pink-2);margin-left:8px}
-.lead{color:rgba(237,237,237,0.86);margin-bottom:8px}
-.meta{color:rgba(237,237,237,0.6);font-size:14px}
+.lead{color:rgba(237,237,237,0.90);margin-bottom:8px}
+.meta{color:rgba(237,237,237,0.68);font-size:14px}
 .btn{display:inline-block;margin-right:10px;padding:10px 16px;border-radius:10px;background:var(--pink);color:#0B0B0B;text-decoration:none;font-weight:700}
-.btn-ghost{background:transparent;border:1px solid rgba(255,77,166,0.14);color:var(--muted)}
-.section{padding:72px 0;border-top:1px solid rgba(255,255,255,0.02)}
+.btn-ghost{background:transparent;border:1px solid rgba(255,77,166,0.16);color:var(--muted)}
+.section{padding:72px 0;border-top:1px solid rgba(255,255,255,0.03)}
 h2{font-size:28px;margin:0 0 18px;color:var(--pink-2)}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:20px;border-radius:12px}
+.card{background:linear-gradient(180deg,rgba(255,255,255,0.025),rgba(255,255,255,0.012));padding:20px;border-radius:12px}
 .timeline{display:flex;flex-direction:column;gap:18px}
 .timeline-item{display:flex;gap:18px;padding:18px;border-radius:12px;background:rgba(255,255,255,0.02);align-items:flex-start}
-.time{width:140px;color:rgba(255,255,255,0.5);font-weight:700}
+.time{width:140px;color:rgba(255,255,255,0.6);font-weight:700}
 .content h4{margin:0 0 8px;color:var(--muted)}
 .thumb img{width:220px;border-radius:8px;margin-top:10px}
 .awards-grid{display:flex;flex-wrap:wrap;gap:12px}
-.award{background:linear-gradient(90deg,rgba(255,77,166,0.06),rgba(255,143,194,0.03));padding:12px;border-radius:10px;color:var(--muted)}
+.award{background:linear-gradient(90deg,rgba(255,77,166,0.08),rgba(255,143,194,0.04));padding:12px;border-radius:10px;color:var(--muted)}
 .skills{display:flex;gap:24px;flex-wrap:wrap}
 .skill{flex:1;min-width:260px}
 .skill-header{font-weight:700;color:var(--pink);margin-bottom:10px}
-.skill-item{margin-bottom:12px;background:rgba(255,255,255,0.02);padding:8px;border-radius:8px;display:flex;align-items:center;justify-content:space-between}
+.skill-item{margin-bottom:12px;background:rgba(255,255,255,0.035);padding:8px;border-radius:8px;display:flex;align-items:center;justify-content:space-between}
 .skill-item .bar{width:36%;height:10px;background:rgba(255,255,255,0.04);border-radius:6px;overflow:hidden;position:relative}
 .skill-item .bar::after{content:'';position:absolute;left:0;top:0;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--pink-2));border-radius:6px;transition:width 800ms cubic-bezier(.2,.9,.2,1)}
-.tags .tag{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.03);margin-right:8px;color:var(--muted)}
-.muted{color:rgba(255,255,255,0.35)}
-.site-footer{padding:24px;text-align:center;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.02);margin-top:36px}
+.tags .tag{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.035);margin-right:8px;color:var(--muted)}
+.muted{color:rgba(255,255,255,0.40)}
+.site-footer{padding:24px;text-align:center;color:rgba(255,255,255,0.30);border-top:1px solid rgba(255,255,255,0.03);margin-top:36px}
 /* reveal animation */
 .reveal{opacity:0;transform:translateY(20px);transition:opacity 600ms ease,transform 600ms ease}
 .reveal.visible{opacity:1;transform:none}
