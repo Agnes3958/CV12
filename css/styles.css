@@ -117,3 +117,12 @@ h2{font-size:28px;margin:0 0 18px;color:var(--pink-2)}
 @media (prefers-reduced-motion: reduce){
   .reveal{transition:none}
 }
+.avatar-wrap{margin-bottom:18px}
+.avatar-placeholder{
+  width:160px;height:160px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#222,#111);
+  color:#fff;font-weight:700;font-size:36px;
+  box-shadow:0 12px 36px rgba(0,0,0,0.45);
+  border:1px solid rgba(255,255,255,0.04);
+}
