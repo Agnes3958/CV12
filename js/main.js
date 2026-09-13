@@ -79,3 +79,6 @@
   sections.forEach(s=> navIO.observe(s));
 
 })();
+/* award tooltip lazy-load + mobile toggle */ (function(){ const awards = document.querySelectorAll('.award[data-img]'); let active = null;
+
+awards.forEach(a=>{ const tip = a.querySelector('.award-tooltip'); const img = tip && tip.querySelector('img'); const src = a.getAttribute('data-img');
