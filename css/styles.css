@@ -131,3 +131,4 @@ h2{font-size:26px;margin:0 0 14px;color:var(--pink-2)}
   border:1px solid rgba(255,255,255,0.04);
 }
  /* timeline: CSS-driven expand/collapse / .timeline-item .content{ max-height: 0; overflow: hidden; transition: max-height 420ms ease, padding 320ms ease; padding-top: 0; padding-bottom: 0; } .timeline-item .content.expanded{ max-height: 1200px; / 根据内容可调 */ padding-top: 10px; padding-bottom: 10px; }
+.avatar-img{ width:140px; height:140px; border-radius:12px; object-fit:cover; /* 裁切并保持不变形 */ display:block; box-shadow:0 12px 36px rgba(0,0,0,0.45); border:1px solid rgba(255,255,255,0.04); }
