@@ -79,6 +79,18 @@
   sections.forEach(s=> navIO.observe(s));
 
 })();
-/* award tooltip lazy-load + mobile toggle */ (function(){ const awards = document.querySelectorAll('.award[data-img]'); let active = null;
+function ensure(){
+  if(img && !img.src) img.src = src;
+}
+a.addEventListener('mouseenter', ()=> ensure());
+a.addEventListener('focus', ()=> ensure());
 
-awards.forEach(a=>{ const tip = a.querySelector('.award-tooltip'); const img = tip && tip.querySelector('img'); const src = a.getAttribute('data-img');
+// mobile: toggle on click when hover not available
+a.addEventListener('click', (e)=>{
+  if(window.matchMedia('(hover: none)').matches){
+    e.preventDefault();
+    ensure();
+    if(tip.classList.contains('visible')){ tip.classList.remove('visible'); active=null; }
+    else { tip.classList.add('visible'); active = tip; }
+  }
+});
