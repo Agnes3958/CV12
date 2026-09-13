@@ -1,6 +1,5 @@
-// main.js — basic interactive behaviors: scroll reveal, nav highlight, timeline toggle, progress animation
+// main.js — interactive behaviors: scroll reveal, nav highlight, timeline toggle, progress animation, award hover tooltip
 (function(){
-  // helper to select
   const $ = (s, ctx=document)=> ctx.querySelector(s);
   const $$ = (s, ctx=document)=> Array.from(ctx.querySelectorAll(s));
 
@@ -19,14 +18,9 @@
     entries.forEach(entry=>{
       if(entry.isIntersecting){
         entry.target.classList.add('visible');
-        // animate bars inside
         entry.target.querySelectorAll('.bar').forEach(bar=>{
           const v = parseInt(bar.getAttribute('data-value')||'0',10);
-          const inner = bar.querySelector('.fill');
-          // if we have ::after, set width by style on a pseudo wrapper
           bar.style.setProperty('--value', v+'%');
-          const pseudo = bar;
-          // set width on ::after by creating a real child for compatibility
           let child = bar.querySelector('.__fill');
           if(!child){ child = document.createElement('span'); child.className='__fill'; child.style.display='block'; child.style.height='100%'; child.style.width='0%'; child.style.background='linear-gradient(90deg,var(--pink),var(--pink-2))'; child.style.borderRadius='6px'; child.style.transition='width 900ms cubic-bezier(.2,.9,.2,1)'; bar.appendChild(child); }
           setTimeout(()=>{ child.style.width = v+'%'; },120);
@@ -37,13 +31,11 @@
   },{threshold:0.12});
   document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
 
-  // progress bars in skill-item that use .bar[data-value]
+  // progress bars in skill-item
   document.querySelectorAll('.bar[data-value]').forEach(bar=>{
-    // create inner for non-pseudo animation if not using CSS ::after
     if(!bar.querySelector('.__fill')){
       const v = bar.getAttribute('data-value');
       const sp = document.createElement('span'); sp.className='__fill'; sp.style.display='block'; sp.style.height='100%'; sp.style.width='0%'; sp.style.background='linear-gradient(90deg,var(--pink),var(--pink-2))'; sp.style.borderRadius='6px'; sp.style.transition='width 900ms cubic-bezier(.2,.9,.2,1)'; bar.appendChild(sp);
-      // animate when in viewport
       const obs = new IntersectionObserver((ents)=>{
         ents.forEach(en=>{ if(en.isIntersecting){ sp.style.width = v+'%'; obs.unobserve(bar); } });
       },{threshold:0.2});
@@ -78,19 +70,24 @@
   },{threshold:0.5});
   sections.forEach(s=> navIO.observe(s));
 
-})();
-function ensure(){
-  if(img && !img.src) img.src = src;
-}
-a.addEventListener('mouseenter', ()=> ensure());
-a.addEventListener('focus', ()=> ensure());
+  // === Award hover tooltip: lazy-load data-img into the tooltip <img> ===
+  document.querySelectorAll('.award[data-img]').forEach(a => {
+    const img = a.querySelector('.award-tooltip img');
+    const src = a.getAttribute('data-img');
+    const tip = a.querySelector('.award-tooltip');
+    if(!img || !src) return;
 
-// mobile: toggle on click when hover not available
-a.addEventListener('click', (e)=>{
-  if(window.matchMedia('(hover: none)').matches){
-    e.preventDefault();
-    ensure();
-    if(tip.classList.contains('visible')){ tip.classList.remove('visible'); active=null; }
-    else { tip.classList.add('visible'); active = tip; }
-  }
-});
+    const ensure = () => { if(!img.getAttribute('src')) img.src = src; };
+    a.addEventListener('mouseenter', ensure);
+    a.addEventListener('focus', ensure);
+
+    a.addEventListener('click', (e)=>{
+      if(window.matchMedia('(hover: none)').matches){
+        e.preventDefault();
+        ensure();
+        if(tip) tip.classList.toggle('visible');
+      }
+    });
+  });
+
+})();
