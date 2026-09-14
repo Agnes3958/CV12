@@ -26,28 +26,27 @@
       </ul>
     </nav>
   </header>
-
   <main>
     <!-- HERO / PROFILE -->
-    <section id="hero" class="hero container">
+    <section id="hero" class="hero container reveal">
       <div class="hero-left profile-card">
         <div class="avatar-wrap">
-        <picture> <source srcset="assets/images/IMG_1559.JPG" type="image/jpeg"> <img src="assets/images/IMG_1559.JPG" alt="何美佳 头像" style="width:140px;height:140px;object-fit:cover;border-radius:12px;display:block;" loading="lazy"> </picture>  
+        <!-- ✅ 修改头像：改为圆形，保留原图路径，增加preview-img类支持点击放大 -->
+        <picture> 
+          <source srcset="assets/images/IMG_1559.JPG" type="image/jpeg"> 
+          <img class="preview-img" src="assets/images/IMG_1559.JPG" alt="何美佳 头像" style="width:140px;height:140px;object-fit:cover;border-radius:50%;display:block;" loading="lazy"> 
+        </picture>  
         </div>
-
         <div class="profile-info">
           <h1 class="reveal-hero">何美佳 <span class="eng">/ Agnes</span></h1>
           <p class="lead">视觉设计师 · 视觉传达 / 互动体验 · 在读艺术科技与商业硕士</p>
-
           <div class="quick-facts">
             <div><strong>所在地</strong><span>成都 / 香港</span></div>
             <div><strong>邮箱</strong><span>meijiahe@LN.hk</span></div>
             <div><strong>电话</strong><span>(+86) 18224090584</span></div>
             <div><strong>可工作形态</strong><span>兼职 / 项目合作</span></div>
           </div>
-
           <p class="summary">我专注于将传统视觉语言与数字交互结合——擅长动画与图像生成，在广播与互动小说项目中担任过美术与视觉策划，熟悉 AE、Spine、AI/PS 工作流。</p>
-
           <div class="cta">
             <a href="#experience" class="btn">查看经历</a>
             <a href="#awards" class="btn btn-ghost">查看奖项&作品</a>
@@ -55,7 +54,6 @@
           </div>
         </div>
       </div>
-
       <div class="hero-right highlights">
         <div class="highlight-card">
           <h3>近期亮点</h3>
@@ -65,7 +63,6 @@
             <li>国家级与校级多项创新训练项目已结项，拥有外观专利</li>
           </ul>
         </div>
-
         <div class="metrics">
           <div class="metric"><div class="num">6</div><div class="label">上线互动小说</div></div>
           <div class="metric"><div class="num">1</div><div class="label">外观设计专利</div></div>
@@ -73,7 +70,6 @@
         </div>
       </div>
     </section>
-
     <!-- Education -->
     <section id="education" class="section container reveal">
       <h2>教育经历</h2>
@@ -83,15 +79,13 @@
           <p>艺术学士（2021.09 – 2025.06）<br>专业：视觉传达设计 / 网络广告艺术方向<br>GPA：3.83 / 5</p>
           <p>主修课程：视觉传达、交互设计基础、数字图像处理、动画原理</p>
         </article>
-
         <article class="card">
           <h3>岭南大学</h3>
-          <p>在读 硕士：艺术科技与商业（研究方向：数字图像与品牌叙事）</p>
+          <p>在读硕士：艺术科技与商业（研究方向：数字艺术和艺术商业）</p>
           <p>研究兴趣：传统工艺数字化、影像叙事与交互体验设计</p>
         </article>
       </div>
     </section>
-
     <!-- Experience -->
     <section id="experience" class="section container reveal">
       <h2>工作 / 实习经历</h2>
@@ -105,7 +99,6 @@
             <p class="muted">工具：Spine / After Effects / Photoshop / Python (Pillow)</p>
           </div>
         </div>
-
         <div class="timeline-item">
           <div class="time">2025.03 – 2025.06</div>
           <div class="content">
@@ -114,7 +107,6 @@
             <figure class="thumb"><img class="preview-img" src="assets/images/部分宣传图.JPG" alt="水墨熊猫展示图"></figure>
           </div>
         </div>
-
         <div class="timeline-item">
           <div class="time">2023.03 – 2024.03</div>
           <div class="content">
@@ -125,7 +117,6 @@
         </div>
       </div>
     </section>
-
     <!-- Research & Patents -->
     <section id="research" class="section container reveal">
       <h2>科研成果 & 专利</h2>
@@ -135,7 +126,6 @@
         <li>校级创新训练项目已结项</li>
       </ul>
     </section>
-
     <!-- Awards -->
     <section id="awards" class="section container reveal">
       <h2>获奖经历&作品展示</h2>
@@ -153,12 +143,11 @@
         <div class="award" data-img="assets/images/awards/awards-2021-2022三好学生.jpg" tabindex="0"> 成都信息工程大学 2021-2022、2022-2023、2023-2024 年度 "三好学生" 称号 <div class="award-tooltip" aria-hidden="true"><img src="" alt="三好学生 证书" loading="lazy"></div> </div> 
         <div class="award" data-img="assets/images/awards/awards-2021-2022一等奖学金.jpg" tabindex="0"> 成都信息工程大学 2021-2022 年度 "一等奖学金" <div class="award-tooltip" aria-hidden="true"><img src="" alt="一等奖学金 证书" loading="lazy"></div> </div> 
         <div class="award" data-img="assets/images/awards/awards-青春榜样.jpg" tabindex="0"> 成都信息工程大学 2023 年度 "十佳青年学生" 称号 <div class="award-tooltip" aria-hidden="true"><img src="" alt="十佳青年学生" loading="lazy"></div> </div> 
-        <div class="award" data-img="assets/images/awards/校级优秀毕业生.jpg" tabindex="0"> 成都信息工程大学 "校级优秀毕业生" 称号 <div class="award-tooltip" aria-hidden="true"><img src="" alt="校级优秀毕业生" loading="lazy"></div> </div> 
+        <div class="award" data-img="assets/images/awards/awards-校级优秀毕业生.jpg" tabindex="0"> 成都信息工程大学 "校级优秀毕业生" 称号 <div class="award-tooltip" aria-hidden="true"><img src="" alt="校级优秀毕业生" loading="lazy"></div> </div> 
         <div class="award" data-img="assets/images/awards/awards-四川省优秀大学毕业生.jpg" tabindex="0"> 四川省 "2025 届优秀毕业生" 称号 <div class="award-tooltip" aria-hidden="true"><img src="" alt="四川省优秀毕业生" loading="lazy"></div> </div> 
         <div class="award">更多奖项见完整简历</div> </div>
       </div>
     </section>
-
     <!-- Skills -->
     <section id="skills" class="section container reveal">
       <h2>技能 & 证书</h2>
@@ -171,7 +160,6 @@
             <div class="skill-item">AI / PS <div class="bar" data-value="88"></div></div>
           </div>
         </div>
-
         <div class="skill">
           <div class="skill-header"><span>语言 / 证书</span></div>
           <div class="skill-list tags">
@@ -182,7 +170,6 @@
         </div>
       </div>
     </section>
-
     <!-- Contact -->
     <section id="contact" class="section container reveal">
       <h2>联系我</h2>
@@ -190,11 +177,9 @@
       <p class="muted">页面由仓库 <code>Agnes3958/CV12</code> 托管 — 可通过 GitHub Pages 部署</p>
     </section>
   </main>
-
   <footer class="site-footer">
     <p>© 2026 何美佳 — 交互式简历 · 设计作品与联系方式以实际简历为准</p>
   </footer>
-
   <script src="js/main.js"></script>
   <!-- 图片放大弹窗 -->
 <div class="image-modal">
