@@ -92,17 +92,25 @@
     });
   });
 })();
-// 图片点击放大预览（仅绑定 .preview-img，不会触发奖项tooltip内图片）
+// 图片点击放大预览
 const modal = document.querySelector('.image-modal');
 const modalImg = document.querySelector('.modal-img');
 const closeBtn = document.querySelector('.modal-close');
-document.querySelectorAll('.preview-img').forEach(img => {
-  img.style.cursor = 'zoom-in'; // 鼠标悬浮放大镜图标
-  img.addEventListener('click', () => {
-    modal.style.display = 'flex';
-    modalImg.src = img.src;
-  })
-});
+
+// 只有弹窗元素都存在，才绑定事件
+if(modal && modalImg && closeBtn){
+  document.querySelectorAll('.preview-img').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => {
+      modal.style.display = 'flex';
+      modalImg.src = img.src;
+    })
+  });
+  closeBtn.addEventListener('click', ()=>{ modal.style.display = 'none'; });
+  modal.addEventListener('click', (e)=>{ if(e.target === modal) modal.style.display = 'none'; });
+  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') modal.style.display = 'none'; });
+}
+
 // 点击关闭按钮关闭弹窗
 closeBtn.addEventListener('click', ()=>{
   modal.style.display = 'none';
