@@ -228,9 +228,9 @@ h2{font-size:26px;margin:0 0 14px;color:var(--pink-2)}
 /* ========== 混合增强动画 CSS ========== */
 /* 流体渐变背景 */
 body {
-  background: linear-gradient(-45deg, #050508, #120f1f, #181024, #0b0a13);
+  background: linear-gradient(-45deg, #050508, #120f1f, #181024, #0b0a13) !important;
   background-size: 400% 400%;
-  animation: gradientFlow 16s ease infinite;
+  animation: gradientFlow 16s ease infinite !important;
 }
 @keyframes gradientFlow {
   0% { background-position: 0% 50%; }
@@ -255,11 +255,11 @@ main, header {
 }
 
 /* 卡片3D倾斜 + 发光hover */
-.card, .timeline-item, .highlight-card, .metric {
+.highlight-card, .metric {
   transform: translateY(0);
   transition: all 0.35s ease;
 }
-.card:hover, .timeline-item:hover, .highlight-card:hover {
+.highlight-card:hover {
   transform: translateY(-4px) scale(1.01);
   box-shadow: 0 0 20px rgba(236, 140, 200, 0.25), 0 0 40px rgba(150, 100, 220, 0.12);
 }
