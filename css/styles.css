@@ -133,3 +133,33 @@ h2{font-size:26px;margin:0 0 14px;color:var(--pink-2)}
  /* timeline: CSS-driven expand/collapse / .timeline-item .content{ max-height: 0; overflow: hidden; transition: max-height 420ms ease, padding 320ms ease; padding-top: 0; padding-bottom: 0; } .timeline-item .content.expanded{ max-height: 1200px; / 根据内容可调 */ padding-top: 10px; padding-bottom: 10px; }
 .avatar-img{ width:140px; height:140px; border-radius:12px; object-fit:cover; /* 裁切并保持不变形 */ display:block; box-shadow:0 12px 36px rgba(0,0,0,0.45); border:1px solid rgba(255,255,255,0.04); }
 /* Award hover tooltip (basic) */ .award{ position:relative; cursor:default; display:inline-block; margin:6px; } .award-tooltip{ position:absolute; left:50%; bottom:calc(100% + 10px); transform:translateX(-50%); width:320px; max-width:90vw; background:#0b0b0d; border-radius:10px; padding:8px; box-shadow:0 12px 40px rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.04); opacity:0; pointer-events:none; transition:opacity 180ms ease, transform 180ms ease; z-index:60; } .award-tooltip img{ width:100%; height:auto; display:block; border-radius:6px; object-fit:cover; } .award:hover .award-tooltip, .award:focus-within .award-tooltip, .award:focus .award-tooltip{ opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(-6px); } @media(max-width:700px){ .award-tooltip{ position:fixed; left:50%; bottom:64px; transform:translateX(-50%); width:320px; max-width:92vw; } }
+/* 图片放大弹窗 */
+.image-modal {
+  display: none; /* 默认隐藏 */
+  position: fixed;
+  z-index: 9999; /* 最高层级，盖过所有内容 */
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.85);
+  align-items: center;
+  justify-content: center;
+}
+.modal-img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+}
+.modal-close {
+  position: absolute;
+  top: 24px;
+  right: 36px;
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.modal-close:hover {
+  color: #ff88bb;
+}
