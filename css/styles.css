@@ -163,3 +163,65 @@ h2{font-size:26px;margin:0 0 14px;color:var(--pink-2)}
 .modal-close:hover {
   color: #ff88bb;
 }
+/* ========== 滚动渐入动画 ========== */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease-out, transform 0.65s ease-out;
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== 头像hover效果 ========== */
+.avatar-wrap .preview-img {
+  transition: transform 0.32s ease, box-shadow 0.32s ease;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+.avatar-wrap .preview-img:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.14);
+}
+
+/* ========== 可点击预览图片样式 ========== */
+.preview-img {
+  cursor: zoom-in;
+  transition: opacity 0.28s ease;
+}
+.preview-img:hover {
+  opacity:0.86;
+}
+
+/* ========== 卡片hover微动效 ========== */
+.card, .timeline-item, .award {
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+.card:hover, .timeline-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 18px rgba(0,0,0,0.07);
+}
+
+/* ========== 📱 移动端自适应布局 ========== */
+@media (max-width:768px) {
+  .hero {
+    flex-direction: column;
+  }
+  .hero-left, .hero-right {
+    width: 100%;
+  }
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .nav-links {
+    gap: 0.6rem;
+    font-size:0.85rem;
+  }
+  .avatar-wrap .preview-img {
+    width:120px !important;
+    height:120px !important;
+  }
+  h2 {
+    font-size:1.4rem;
+  }
+}
