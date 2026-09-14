@@ -12,6 +12,16 @@
       if(el){ el.scrollIntoView({behavior:'smooth',block:'start'}); }
     })
   });
+  
+  // hero CTA 按钮平滑滚动
+  document.querySelectorAll('.cta a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', e=>{
+     e.preventDefault();
+      const id = a.getAttribute('href').slice(1);
+      const el = document.getElementById(id);
+      if(el){ el.scrollIntoView({behavior:'smooth',block:'start'}); }
+    })
+  });
 
   // IntersectionObserver for reveal
   const io = new IntersectionObserver(entries=>{
