@@ -2,7 +2,6 @@
 (function(){
   const $ = (s, ctx=document)=> ctx.querySelector(s);
   const $$ = (s, ctx=document)=> Array.from(ctx.querySelectorAll(s));
-
   // smooth scroll for nav links
   document.querySelectorAll('.nav-links a').forEach(a=>{
     a.addEventListener('click', e=>{
@@ -22,7 +21,6 @@
       if(el){ el.scrollIntoView({behavior:'smooth',block:'start'}); }
     })
   });
-
   // IntersectionObserver for reveal
   const io = new IntersectionObserver(entries=>{
     entries.forEach(entry=>{
@@ -40,7 +38,6 @@
     })
   },{threshold:0.12});
   document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
-
   // progress bars in skill-item
   document.querySelectorAll('.bar[data-value]').forEach(bar=>{
     if(!bar.querySelector('.__fill')){
@@ -52,7 +49,6 @@
       obs.observe(bar);
     }
   });
-
   // timeline expand/collapse
   document.querySelectorAll('.timeline-item .content').forEach(content=>{
     content.style.cursor='pointer';
@@ -66,7 +62,6 @@
       }
     });
   });
-
   // nav highlight based on scroll
   const sections = Array.from(document.querySelectorAll('main section[id]'));
   const navlinks = Array.from(document.querySelectorAll('.nav-links a'));
@@ -79,18 +74,15 @@
     })
   },{threshold:0.5});
   sections.forEach(s=> navIO.observe(s));
-
   // === Award hover tooltip: lazy-load data-img into the tooltip <img> ===
   document.querySelectorAll('.award[data-img]').forEach(a => {
     const img = a.querySelector('.award-tooltip img');
     const src = a.getAttribute('data-img');
     const tip = a.querySelector('.award-tooltip');
     if(!img || !src) return;
-
     const ensure = () => { if(!img.getAttribute('src')) img.src = src; };
     a.addEventListener('mouseenter', ensure);
     a.addEventListener('focus', ensure);
-
     a.addEventListener('click', (e)=>{
       if(window.matchMedia('(hover: none)').matches){
         e.preventDefault();
@@ -99,22 +91,18 @@
       }
     });
   });
-
 })();
-// 图片点击放大预览
+// 图片点击放大预览（仅绑定 .preview-img，不会触发奖项tooltip内图片）
 const modal = document.querySelector('.image-modal');
 const modalImg = document.querySelector('.modal-img');
 const closeBtn = document.querySelector('.modal-close');
-
-// 给页面所有图片绑定点击事件
-document.querySelectorAll('img').forEach(img => {
-  img.style.cursor = 'zoom-in'; // 鼠标悬浮变成放大镜图标
+document.querySelectorAll('.preview-img').forEach(img => {
+  img.style.cursor = 'zoom-in'; // 鼠标悬浮放大镜图标
   img.addEventListener('click', () => {
     modal.style.display = 'flex';
     modalImg.src = img.src;
   })
 });
-
 // 点击关闭按钮关闭弹窗
 closeBtn.addEventListener('click', ()=>{
   modal.style.display = 'none';
