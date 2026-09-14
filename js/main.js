@@ -115,6 +115,9 @@ modal.addEventListener('click', (e)=>{
 document.addEventListener('keydown', (e)=>{
   if(e.key === 'Escape') modal.style.display = 'none';
 });
+// 等待DOM全部加载完成后，再执行所有动画代码
+document.addEventListener('DOMContentLoaded', function(){
+
 // ========== 星空粒子背景 ==========
 (function initParticleBg(){
   const canvas = document.createElement('canvas');
@@ -185,9 +188,10 @@ document.addEventListener('keydown', (e)=>{
   animateParticles();
 })();
 
-// ========== 滚动入场动画 ==========
+// ========== 滚动入场动画（适配你页面class：highlight-card，你可以继续添加其他区块class） ==========
 (function revealAnimation(){
-  const items = document.querySelectorAll('.card, .timeline-item, .highlight-card');
+  // 👉 这里填写你页面真实存在的class！只保留highlight-card，你后续新增卡片再补充
+  const items = document.querySelectorAll('.highlight-card');
   items.forEach(el=> el.classList.add('reveal-animate'));
   const ioReveal = new IntersectionObserver((entries)=>{
     entries.forEach(en=>{
@@ -203,6 +207,7 @@ document.addEventListener('keydown', (e)=>{
 // ========== 导航栏滚动磨砂效果 ==========
 (function navScrollBlur(){
   const header = document.querySelector('header');
+  if(!header) return;
   window.addEventListener('scroll', ()=>{
     if(window.scrollY > 40){
       header.classList.add('scrolled');
@@ -212,30 +217,37 @@ document.addEventListener('keydown', (e)=>{
   })
 })();
 
-// ========== 统计数字滚动计数动画 ==========
+// ========== 统计数字滚动计数动画【支持带+后缀】 ==========
 (function counterAnimation(){
   const nums = document.querySelectorAll('.metric .num');
   const ioCounter = new IntersectionObserver((entries)=>{
     entries.forEach(en=>{
       if(en.isIntersecting){
-        const target = parseInt(en.target.textContent);
+        const rawText = en.target.textContent.trim();
+        const numMatch = rawText.match(/(\d+)(.*)/);
+        if(!numMatch) return;
+        const target = parseInt(numMatch[1]);
+        const suffix = numMatch[2];
         let current = 0;
         const timer = setInterval(()=>{
           current += 1;
-          en.target.textContent = current;
+          en.target.textContent = current + suffix;
           if(current >= target) clearInterval(timer);
         },40);
         ioCounter.unobserve(en.target);
       }
     })
-  },{threshold:0.4});
+  },{threshold:0.2});
   nums.forEach(n=> ioCounter.observe(n));
 })();
 
 // ========== 简易视差效果 ==========
 window.addEventListener('scroll', ()=>{
   const scrollY = window.scrollY;
-  document.querySelectorAll('.hero').forEach(hero=>{
+  const hero = document.querySelector('.hero');
+  if(hero){
     hero.style.transform = `translateY(${scrollY * 0.08}px)`;
-  })
+  }
 })
+
+}); // DOMContentLoaded结束标签
