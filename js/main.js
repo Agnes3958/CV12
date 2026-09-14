@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function(){
     constructor(){
       this.x = Math.random() * w;
       this.y = Math.random() * h;
-      this.radius = Math.random() * 1.2 + 0.2;
+      this.radius = Math.random() * 1.4 + 0.3;
       this.speedX = Math.random() * 0.4 - 0.2;
       this.speedY = Math.random() * 0.4 - 0.2;
     }
@@ -168,11 +168,11 @@ document.addEventListener('DOMContentLoaded', function(){
     draw(){
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
-      ctx.fillStyle = "rgba(240, 200, 255, 0.65)";
+      ctx.fillStyle = "rgba(240, 200, 255, 0.8)";
       ctx.fill();
     }
   }
-  for(let i=0;i<80;i++) particles.push(new Particle());
+  for(let i=0;i<150;i++) particles.push(new Particle());
 
   window.addEventListener('mousemove', e=>{
     mouseX = e.clientX;
