@@ -101,3 +101,29 @@
   });
 
 })();
+// 图片点击放大预览
+const modal = document.querySelector('.image-modal');
+const modalImg = document.querySelector('.modal-img');
+const closeBtn = document.querySelector('.modal-close');
+
+// 给页面所有图片绑定点击事件
+document.querySelectorAll('img').forEach(img => {
+  img.style.cursor = 'zoom-in'; // 鼠标悬浮变成放大镜图标
+  img.addEventListener('click', () => {
+    modal.style.display = 'flex';
+    modalImg.src = img.src;
+  })
+});
+
+// 点击关闭按钮关闭弹窗
+closeBtn.addEventListener('click', ()=>{
+  modal.style.display = 'none';
+});
+// 点击弹窗黑色背景关闭
+modal.addEventListener('click', (e)=>{
+  if(e.target === modal) modal.style.display = 'none';
+});
+// 按键盘ESC键关闭
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape') modal.style.display = 'none';
+});
