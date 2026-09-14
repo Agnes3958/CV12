@@ -115,3 +115,127 @@ modal.addEventListener('click', (e)=>{
 document.addEventListener('keydown', (e)=>{
   if(e.key === 'Escape') modal.style.display = 'none';
 });
+// ========== 星空粒子背景 ==========
+(function initParticleBg(){
+  const canvas = document.createElement('canvas');
+  canvas.id = "particleCanvas";
+  document.body.prepend(canvas);
+  const ctx = canvas.getContext('2d');
+  let w, h, particles = [], mouseX = null, mouseY = null;
+
+  function resizeCanvas(){
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  // 创建粒子
+  class Particle{
+    constructor(){
+      this.x = Math.random() * w;
+      this.y = Math.random() * h;
+      this.radius = Math.random() * 1.2 + 0.2;
+      this.speedX = Math.random() * 0.4 - 0.2;
+      this.speedY = Math.random() * 0.4 - 0.2;
+    }
+    update(){
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if(this.x < 0) this.x = w;
+      if(this.x > w) this.x = 0;
+      if(this.y <0) this.y = h;
+      if(this.y > h) this.y =0;
+      // 鼠标引力排斥
+      if(mouseX && mouseY){
+        const dx = mouseX - this.x;
+        const dy = mouseY - this.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if(dist < 120){
+          const force = (120 - dist)/120;
+          this.x -= dx * force * 0.025;
+          this.y -= dy * force * 0.025;
+        }
+      }
+    }
+    draw(){
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+      ctx.fillStyle = "rgba(240, 200, 255, 0.65)";
+      ctx.fill();
+    }
+  }
+  // 初始化粒子数量
+  for(let i=0;i<80;i++) particles.push(new Particle());
+
+  // 鼠标监听
+  window.addEventListener('mousemove', e=>{
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+  window.addEventListener('mouseleave', ()=>{
+    mouseX = null; mouseY = null;
+  });
+
+  function animateParticles(){
+    ctx.clearRect(0,0,w,h);
+    particles.forEach(p=>{ p.update(); p.draw(); });
+    requestAnimationFrame(animateParticles);
+  }
+  animateParticles();
+})();
+
+// ========== 滚动入场动画 ==========
+(function revealAnimation(){
+  const items = document.querySelectorAll('.card, .timeline-item, .highlight-card');
+  items.forEach(el=> el.classList.add('reveal-animate'));
+  const ioReveal = new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){
+        en.target.classList.add('active');
+        ioReveal.unobserve(en.target);
+      }
+    })
+  },{threshold:0.15});
+  items.forEach(item=> ioReveal.observe(item));
+})();
+
+// ========== 导航栏滚动磨砂效果 ==========
+(function navScrollBlur(){
+  const header = document.querySelector('header');
+  window.addEventListener('scroll', ()=>{
+    if(window.scrollY > 40){
+      header.classList.add('scrolled');
+    }else{
+      header.classList.remove('scrolled');
+    }
+  })
+})();
+
+// ========== 统计数字滚动计数动画 ==========
+(function counterAnimation(){
+  const nums = document.querySelectorAll('.metric .num');
+  const ioCounter = new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){
+        const target = parseInt(en.target.textContent);
+        let current = 0;
+        const timer = setInterval(()=>{
+          current += 1;
+          en.target.textContent = current;
+          if(current >= target) clearInterval(timer);
+        },40);
+        ioCounter.unobserve(en.target);
+      }
+    })
+  },{threshold:0.4});
+  nums.forEach(n=> ioCounter.observe(n));
+})();
+
+// ========== 简易视差效果 ==========
+window.addEventListener('scroll', ()=>{
+  const scrollY = window.scrollY;
+  document.querySelectorAll('.hero').forEach(hero=>{
+    hero.style.transform = `translateY(${scrollY * 0.08}px)`;
+  })
+})
