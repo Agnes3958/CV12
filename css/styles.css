@@ -228,9 +228,9 @@ h2{font-size:26px;margin:0 0 14px;color:var(--pink-2)}
 /* ========== 混合增强动画 CSS ========== */
 /* 流体渐变背景 */
 body {
-  background: linear-gradient(-45deg, #050508, #120f1f, #181024, #0b0a13) !important;
+  background: linear-gradient(-45deg, #050508, #120f1f, #181024, #0b0a13);
   background-size: 400% 400%;
-  animation: gradientFlow 16s ease infinite !important;
+  animation: gradientFlow 16s ease infinite;
 }
 @keyframes gradientFlow {
   0% { background-position: 0% 50%; }
@@ -238,7 +238,7 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* 粒子画布，固定在页面最底层 */
+/* 粒子画布，放在最底层，z-index:-1 ！！！重点！！！ */
 #particleCanvas {
   position: fixed;
   top: 0;
@@ -246,15 +246,15 @@ body {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
 }
-/* 页面内容整体上浮一层，放在粒子画布之上 */
+/* 页面内容放在粒子上面 */
 main, header {
   position: relative;
   z-index: 1;
 }
 
-/* 卡片3D倾斜 + 发光hover */
+/* 卡片hover发光上浮 */
 .highlight-card, .metric {
   transform: translateY(0);
   transition: all 0.35s ease;
@@ -264,7 +264,7 @@ main, header {
   box-shadow: 0 0 20px rgba(236, 140, 200, 0.25), 0 0 40px rgba(150, 100, 220, 0.12);
 }
 
-/* 滚动入场动画 */
+/* 滚动入场 */
 .reveal-animate {
   opacity: 0;
   transform: translateY(30px);
@@ -275,7 +275,7 @@ main, header {
   transform: translateY(0);
 }
 
-/* 导航栏磨砂玻璃效果 */
+/* 导航磨砂 */
 header {
   transition: backdrop-filter 0.4s ease, background 0.4s ease;
 }
@@ -284,7 +284,6 @@ header.scrolled {
   backdrop-filter: blur(10px);
 }
 
-/* 统计数字样式 */
 .metric .num {
   display: inline-block;
 }

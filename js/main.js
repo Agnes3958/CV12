@@ -115,11 +115,9 @@ modal.addEventListener('click', (e)=>{
 document.addEventListener('keydown', (e)=>{
   if(e.key === 'Escape') modal.style.display = 'none';
 });
-// 等待DOM全部加载完成后，再执行所有动画代码
+// ========== 全部动画代码，等待DOM加载完成 ==========
 document.addEventListener('DOMContentLoaded', function(){
-
-// ========== 星空粒子背景 ==========
-(function initParticleBg(){
+  // 粒子背景
   const canvas = document.createElement('canvas');
   canvas.id = "particleCanvas";
   document.body.prepend(canvas);
@@ -133,7 +131,6 @@ document.addEventListener('DOMContentLoaded', function(){
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
 
-  // 创建粒子
   class Particle{
     constructor(){
       this.x = Math.random() * w;
@@ -149,7 +146,6 @@ document.addEventListener('DOMContentLoaded', function(){
       if(this.x > w) this.x = 0;
       if(this.y <0) this.y = h;
       if(this.y > h) this.y =0;
-      // 鼠标引力排斥
       if(mouseX && mouseY){
         const dx = mouseX - this.x;
         const dy = mouseY - this.y;
@@ -168,10 +164,8 @@ document.addEventListener('DOMContentLoaded', function(){
       ctx.fill();
     }
   }
-  // 初始化粒子数量
   for(let i=0;i<80;i++) particles.push(new Particle());
 
-  // 鼠标监听
   window.addEventListener('mousemove', e=>{
     mouseX = e.clientX;
     mouseY = e.clientY;
@@ -186,11 +180,8 @@ document.addEventListener('DOMContentLoaded', function(){
     requestAnimationFrame(animateParticles);
   }
   animateParticles();
-})();
 
-// ========== 滚动入场动画（适配你页面class：highlight-card，你可以继续添加其他区块class） ==========
-(function revealAnimation(){
-  // 👉 这里填写你页面真实存在的class！只保留highlight-card，你后续新增卡片再补充
+  // 滚动入场动画
   const items = document.querySelectorAll('.highlight-card');
   items.forEach(el=> el.classList.add('reveal-animate'));
   const ioReveal = new IntersectionObserver((entries)=>{
@@ -202,23 +193,20 @@ document.addEventListener('DOMContentLoaded', function(){
     })
   },{threshold:0.15});
   items.forEach(item=> ioReveal.observe(item));
-})();
 
-// ========== 导航栏滚动磨砂效果 ==========
-(function navScrollBlur(){
+  // 导航磨砂
   const header = document.querySelector('header');
-  if(!header) return;
-  window.addEventListener('scroll', ()=>{
-    if(window.scrollY > 40){
-      header.classList.add('scrolled');
-    }else{
-      header.classList.remove('scrolled');
-    }
-  })
-})();
+  if(header){
+    window.addEventListener('scroll', ()=>{
+      if(window.scrollY > 40){
+        header.classList.add('scrolled');
+      }else{
+        header.classList.remove('scrolled');
+      }
+    })
+  }
 
-// ========== 统计数字滚动计数动画【支持带+后缀】 ==========
-(function counterAnimation(){
+  // 数字计数（支持25+）
   const nums = document.querySelectorAll('.metric .num');
   const ioCounter = new IntersectionObserver((entries)=>{
     entries.forEach(en=>{
@@ -239,15 +227,13 @@ document.addEventListener('DOMContentLoaded', function(){
     })
   },{threshold:0.2});
   nums.forEach(n=> ioCounter.observe(n));
-})();
 
-// ========== 简易视差效果 ==========
-window.addEventListener('scroll', ()=>{
-  const scrollY = window.scrollY;
-  const hero = document.querySelector('.hero');
-  if(hero){
-    hero.style.transform = `translateY(${scrollY * 0.08}px)`;
-  }
-})
-
-}); // DOMContentLoaded结束标签
+  // hero视差
+  window.addEventListener('scroll', ()=>{
+    const scrollY = window.scrollY;
+    const hero = document.querySelector('.hero');
+    if(hero){
+      hero.style.transform = `translateY(${scrollY * 0.08}px)`;
+    }
+  })
+});
